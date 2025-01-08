@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room Display</title>
+    <title>Room Display v1.1</title>
     <style>
         body {
             display: flex;
@@ -26,6 +26,15 @@
             bottom: -120px;
             transition: bottom 0.5s ease-in-out;
         }
+        .easter-egg-large {
+            position: fixed;
+            width: 500px;
+            height: auto;
+            bottom: -520px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: bottom 0.5s ease-in-out;
+        }
         .heart {
             position: absolute;
             font-size: 20px;
@@ -37,14 +46,24 @@
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-200px); opacity: 0; }
         }
-            100% { transform: translateY(-100px); opacity: 0; }
-        }
     </style>
     <script>
         function showEasterEgg() {
             const egg = document.querySelector('.easter-egg');
+            const largeEgg = document.querySelector('.easter-egg-large');
             const screenWidth = window.innerWidth;
             const randomX = Math.random() * (screenWidth - 100); // Adjusting for image width
+            
+            if (Math.random() < 0.1) { // 10% chance to show large image
+                largeEgg.style.display = 'block';
+                largeEgg.style.bottom = '0';
+                setTimeout(() => {
+                largeEgg.style.bottom = '-520px';
+                setTimeout(() => { largeEgg.style.display = 'none'; }, 500);
+            }, 2000);
+                return;
+            }
+            
             egg.style.left = `${randomX}px`;
             
             // Randomly switch the image source
@@ -94,5 +113,6 @@
 <body>
     <img src="display.png" alt="Bildvisning">
     <img src="https://munterscode.github.io/room-display/klas.png" alt="Easter Egg" class="easter-egg">
+    <img src="https://munterscode.github.io/room-display/klas2.png" alt="Easter Egg Large" class="easter-egg-large">
 </body>
 </html>
