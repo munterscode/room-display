@@ -30,8 +30,25 @@
     <script>
         function showEasterEgg() {
             const egg = document.querySelector('.easter-egg');
-            const randomX = Math.random() * (window.innerWidth - 100); // Adjusting for image width
+            const screenWidth = window.innerWidth;
+            const randomX = Math.random() * (screenWidth - 100); // Adjusting for image width
             egg.style.left = `${randomX}px`;
+            
+            // Randomly switch the image source
+            const randomChance = Math.random();
+            if (randomChance < 0.3) { // 20% chance to change the image
+                egg.src = "https://munterscode.github.io/room-display/klas2.png";
+            } else {
+                egg.src = "https://munterscode.github.io/room-display/klas.png"; // Default image
+            }
+            
+            // If the image appears on the left side of the screen center, mirror it
+            if (randomX < screenWidth / 2) {
+                egg.style.transform = 'scaleX(-1)';
+            } else {
+                egg.style.transform = 'scaleX(1)';
+            }
+            
             setTimeout(() => {
                 egg.style.bottom = '0';
                 setTimeout(() => {
