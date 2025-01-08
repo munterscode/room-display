@@ -26,6 +26,19 @@
             bottom: -120px;
             transition: bottom 0.5s ease-in-out;
         }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: red;
+            opacity: 1;
+            animation: floatUp 2s linear forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
     </style>
     <script>
         function showEasterEgg() {
@@ -36,7 +49,7 @@
             
             // Randomly switch the image source
             const randomChance = Math.random();
-            if (randomChance < 0.3) { // 20% chance to change the image
+            if (randomChance < 0.2) { // 20% chance to change the image
                 egg.src = "https://munterscode.github.io/room-display/klas2.png";
             } else {
                 egg.src = "https://munterscode.github.io/room-display/klas.png"; // Default image
@@ -51,11 +64,30 @@
             
             setTimeout(() => {
                 egg.style.bottom = '0';
+                if (Math.random() < 0.3) { // 30% chance to trigger hearts
+                    generateHearts(egg);
+                }
                 setTimeout(() => {
                     egg.style.bottom = '-120px';
                 }, 2000);
             }, 100);
         }
+        
+        function generateHearts(egg) {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.classList.add('heart');
+                    const rect = egg.getBoundingClientRect();
+                    heart.style.left = `${rect.left + rect.width / 2}px`;
+                    heart.style.top = `${rect.top}px`;
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 300);
+            }
+        }
+        
         setInterval(showEasterEgg, Math.floor(Math.random() * 15000) + 5000);
     </script>
 </head>
