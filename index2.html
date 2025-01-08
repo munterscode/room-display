@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildvisning</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .easter-egg {
+            position: fixed;
+            width: 100px;
+            height: auto;
+            bottom: -120px;
+            transition: bottom 0.5s ease-in-out;
+        }
+    </style>
+    <script>
+        function showEasterEgg() {
+            const egg = document.querySelector('.easter-egg');
+            const randomX = Math.random() * (window.innerWidth - 100); // Adjusting for image width
+            egg.style.left = `${randomX}px`;
+            setTimeout(() => {
+                egg.style.bottom = '0';
+                setTimeout(() => {
+                    egg.style.bottom = '-120px';
+                }, 2000);
+            }, 100);
+        }
+        setInterval(showEasterEgg, Math.floor(Math.random() * 15000) + 5000);
+    </script>
+</head>
+<body>
+    <img src="display.png" alt="Bildvisning">
+    <img src="https://munterscode.github.io/room-display/klas.png" alt="Easter Egg" class="easter-egg">
+</body>
+</html>
